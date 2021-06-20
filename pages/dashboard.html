@@ -1,0 +1,303 @@
+<!DOCTYPE html>    
+<html>    
+<head>    
+    <!-- DataTables  & Plugins -->
+    <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="../plugins/jszip/jszip.min.js"></script>
+    <!-- <script src="../plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="../plugins/pdfmake/vfs_fonts.js"></script> -->
+    <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>  
+
+    <!-- <script src="../dist/js/datatables/angular-datatables.min.js"></script>   -->
+    
+</head>    
+<body ng-controller="mainController">    
+    <div>    
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Info boxes -->
+                <section class="content">
+                    <!-- Small boxes (Stat box) -->
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                            <h3>32.3 °C</h3>
+            
+                            <p>Temperature</p>
+                            </div>
+                            <div class="icon">
+                                <i class="bi bi-thermometer-sun" role="img" aria-label="thermometer"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                            <h3>53<sup style="font-size: 20px">%RH</sup></h3>
+            
+                            <p>Humidity</p>
+                            </div>
+                            <div class="icon">
+                                <i class="bi bi-droplet-half" role="img" aria-label="droplet-half"></i>
+
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                            <h3>2 dB</h3>
+            
+                            <p>Sound level</p>
+                            </div>
+                            <div class="icon">
+                                <i class="bi bi-mic-mute-fill" role="img" aria-label="mic-mute"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                            <h3>1500 Lux</h3>
+            
+                            <p>Light Intensity</p>
+                            </div>
+                            <div class="icon">
+                                <i class="bi bi-brightness-high-fill" role="img" aria-label="brightness-fill"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <!-- ./col -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <!-- /.row -->
+                <section class="content connectedSortable">
+                    <div class="row">
+                        <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                            <h5 class="card-title">{{ chart_title }}</h5>
+                
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                                </button>
+                                <div class="btn-group">
+                                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-wrench"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <a href="#" class="dropdown-item">Save</a>
+                                    <a href="#" class="dropdown-item">Export</a>
+                                </div>
+                                </div>
+                                <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                                </button> -->
+                            </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                
+                                <div class="chart">
+                                    <!-- Sales Chart Canvas -->
+                                    <canvas id="chart-line" class="chart-canvas" style="height: 250px;"></canvas>
+                                </div>
+                                <!-- /.chart-responsive -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                            </div>
+                            <!-- ./card-body -->
+                            <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-3 col-6">
+                                <div class="description-block border-right">
+                                    <span class="description-percentage text-success"><i class="fas fa-caret-down"></i> 17%</span>
+                                    <h5 class="description-header">35.2 °C</h5>
+                                    <span class="description-text">Temperature</span>
+                                </div>
+                                <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-3 col-6">
+                                <div class="description-block border-right">
+                                    <span class="description-percentage text-warning"><i class="fas fa-caret-up"></i> 10 %</span>
+                                    <h5 class="description-header">65 %RH</h5>
+                                    <span class="description-text">Humidity</span>
+                                </div>
+                                <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-3 col-6">
+                                <div class="description-block border-right">
+                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 1%</span>
+                                    <h5 class="description-header">1 dB</h5>
+                                    <span class="description-text">Sound noise</span>
+                                </div>
+                                <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-3 col-6">
+                                <div class="description-block">
+                                    <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 10%</span>
+                                    <h5 class="description-header">1650 Lux</h5>
+                                    <span class="description-text">Light</span>
+                                </div>
+                                <!-- /.description-block -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            </div>
+                            <!-- /.card-footer -->
+                        </div>
+                        <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </section>
+                <!-- Main row -->
+                <section class="content connectedSortable">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header border-transparent">
+                                <h3 class="card-title">Device management</h3>
+                    
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table m-0">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Description</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="device in device_list">
+                                        <td><a href="pages/examples/invoice.html">{{device.id}}</a></td>
+                                        <td>{{device.name}}</td>
+                                        <!-- <td><span class="badge badge-success">{{device.status}}</span></td> -->
+                                        
+                                        <td>
+                                            <span ng-if="device.status == true" class="badge badge-success">{{device.status}}</span>
+                                            <span ng-if="device.status == false" class="badge badge-danger">{{device.status}}</span>
+
+                                        </td>
+
+
+                                        <td>
+                                            <div class="sparkbar" data-color="#00a65a" data-height="20">{{device.description}}</div>
+                                        </td>
+                                    </tr>
+                                   
+                                    </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clearfix">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                                </div>
+                                <!-- /.card-footer -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </section>
+
+                <section class="content connectedSortable">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                            <div class="card-header">
+                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="table table-responsive table-data clear-both" data-ng-show="viewState === possibleStates[0]">
+                                        <table id="device_table" class="table m-0 table-striped table-dark device_list list dtable">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Status</th>
+                                                    <th>Description</th>
+                                                    <th>createdAt</th>
+                                                    <!-- <th class="blank-cell"></th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="device in device_list track by $index">
+                                                    <td>{{ device.id }}</td>
+                                                    <td>{{ device.name }}</td>
+                                                    <td>{{ device.status }}</td>
+                                                    <td>{{ device.description }}</td>
+                                                    <td>{{ device.createdAt }}</td>
+                                                    <!-- <td class="device_list controls blank-cell">
+                                                        <a class="btn pointer" data-ng-click="showEditUser( $index )">Edit</a>
+                                                    </td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                            <!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                  <!-- /.card -->
+
+            <!-- /.row -->
+            </div><!--/. container-fluid -->
+        </section>
+    </div>   
+
+    
+    <!-- REQUIRED SCRIPTS -->
+    <script src="dist/js/pages/dashboard.js"></script>
+    <script>
+   
+    </script>
+</body>    
+</html>  
